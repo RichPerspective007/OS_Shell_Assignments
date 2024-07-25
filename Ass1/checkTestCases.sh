@@ -6,9 +6,12 @@ for script in ./scripts/*; do
 	testCase=0
 	passed=0
 	while IFS= read -r line; do
-		a=$(cut -d "," <<< $line -f1)
-		b=$(cut -d "," <<< $line -f2)
-		c=$(cut -d "," <<< $line -f3)
+		#a=$(cut -d "," <<< $line -f1)
+		#b=$(cut -d "," <<< $line -f2)
+		#c=$(cut -d "," <<< $line -f3)
+		oifs=$IFS
+		IFS=, read a b c <<< $line
+		IFS=$oifs
 		out=$(gcd $a $b 2>error.log)
 		error=$(cat error.log)
 		testCase=$(($testCase+1))
